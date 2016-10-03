@@ -25,8 +25,8 @@
     Greetr.prototype = {
 
         //Logs the supportedLangs on the console;
-        supportedLangDisplay: function(){
-          console.log(supportedLangs);
+        supportedLangDisplay: function() {
+            console.log(supportedLangs);
         },
 
         fullName: function() {
@@ -69,7 +69,31 @@
             return this;
         },
 
-       //Can change the language on the fly as long as it is supported
+        loginGreet: function(selector, formal) {
+            if (!$) {
+                throw 'jQuery not loaded';
+            }
+            if (!selector) {
+                throw 'Missing jQuery selector';
+            }
+
+            var msg;
+
+            if (formal === 'formal') {
+                msg = this.formalGreetings();
+            } else {
+                msg = this.greetings();
+            }
+            if (selector.indexOf('#') !== 0) {
+                $('#' + selector).html(msg);
+            } else {
+                $(selector).html(msg);
+            }
+            this.log();
+            return this;
+        },
+
+        //Can change the language on the fly as long as it is supported
         setLang: function(lang) {
             this.language = lang;
             this.validate();
